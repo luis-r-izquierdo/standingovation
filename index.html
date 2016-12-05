@@ -1,0 +1,271 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+
+<HEAD>
+
+   <TITLE>Miller and Page's Standing Ovation Model</TITLE>
+
+   <META http-equiv=Content-Type content="text/html; charset=windows-1252">
+
+   <META name=keywords content="Markov chains, computer modelling, Standing Ovation, SOP, Miller, Page">
+
+   <META name=Description content="Analysis of Miller and Page's (2004) Standing Ovation Model">
+
+   <META name=Authors content="Luis R. Izquierdo, Segismundo S. Izquierdo, Jos&eacute; M. Gal&aacute;n &amp; Jos&eacute; I. Santos">
+
+   <STYLE type="text/css">
+      H1 {
+         BACKGROUND-COLOR: #111199;
+         color: #ffffff;
+         font-family: monospace;
+         padding: 5px;
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      H2 {
+         BACKGROUND-COLOR: #66ccff;
+         font-family: arial;
+         padding: 2px;
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      H3 {
+         BACKGROUND-COLOR: #cccccc;
+         font-family: verdana;
+         font-weight: bold
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      p {
+         font-family: monospace
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      table {
+         font-family: monospace
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      ul {
+         font-family: monospace
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      i.button {
+         font-family: arial;
+         color: blue;
+         font-weight: bold
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      i.value {
+         font-family: arial;
+         color: #444444;
+         font-weight: bold
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      i.slider {
+         font-family: arial;
+         color: green;
+         font-weight: bold
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      dl {
+         font-family: monospace
+      }
+   </style>
+</HEAD>
+
+<body>
+
+   <h1>Miller and Page's Standing Ovation Model</h1>
+
+   <H2>How to install the model</H2>
+
+   <p>To use StandingOvation, you will have to install <a target="_blank" href="http://ccl.northwestern.edu/netlogo/">NetLogo 5.3.1 (free and open source)</a> and download <a href="StandingOvation.nlogo">the model itself</a>. Unzip the downloaded file and click on StandingOvation.nlogo</p>
+
+   <h2>Introduction</h2>
+
+   <p>The Standing Ovation model proposed by Miller and Page (<a href="#miller2004">2004</a>) illustrates a familiar decision-making problem: at the end of a performance the audience begins to applaud. The applause builds and a few members of the audience decide to stand up in enthusiastic recognition. In this situation every other member of the audience must decide whether to join the standing individuals in their ovation, or else remain seated. It is not a trivial decision; imagine, for example, that you initially decide to stay down quietly but then find yourself surrounded by people standing and clapping vigorously. It seems plausible that you may feel awkward, change your mind and end up standing up, saving yourself a significant dose of potential embarrassment. Analogously, you probably wouldn't enjoy being the only person standing and clapping alone in the middle of a crowded auditorium of seated people.</p>
+   <p>Miller and Page (<a href="#miller2004">2004</a>) explore this problem using a computational model to show the advantages of agent-based modelling. They correctly point out that the model differs from the real world in that people in the real world eventually leave the auditorium. This model is also discussed by de Marchi (<a href="#demarchi2005">2005</a>, pp. 6-10) and by Miller and Page (<a href="#miller2007">2007</a>, pp. 10-14)</p>
+
+   <h2>Brief description of the model</h2>
+
+   <p>Here we analyse the computational model described by Miller and Page (<a href="#miller2004">2004</a>) in section 6 of their paper. In this model there is a square auditorium <i>L</i>&times;<i>L</i> crowded with agents. At the conclusion of the performance, each agent evaluates the performance's quality. Agent <i>i</i>'s perception of the quality of the show is a random floating-point number in the interval [0, 1] and is denoted <i>q<sub>i</sub></i>. If this value <i>q<sub>i</sub></i> is greater than a certain threshold (with default value equal to 0.5) the agent decides to stand up. Once every agent has assessed the quality of the show and has acted accordingly, every agent reviews her current decision by observing the behaviour of her neighbours and following a majority rule: if the majority of her neighbours are showing a different behaviour, she changes her mind and follows the prevalent behaviour in her neighbourhood &ndash;standing or seating&ndash;<sup> [<a href="#fn1">1</a>]</sup>. This reviewing process repeats indefinitely.</p>
+
+   <p>Miller and Page (<a href="#miller2004">2004</a>) consider two types of neighbourhoods: "five neighbours" and "conical neighbourhood". In the first one, each agent looks at the two agents on either side and the three agents on the row ahead. In the "conical neighbourhood", each agent looks at the two agents on either side, the three agents on the first row ahead, the five agents on the second row ahead and so on.</p>
+
+   <p>Another important aspect of this model is the scheduling of events within each time-step (i.e. the temporal order in which agents make their decisions). Miller and Page (<a href="#miller2004">2004</a>) propose three timing alternatives, but here we only consider two of them in detail:</p>
+   <ul>
+      <li>Synchronous updating (SU): in each time-step all agents update their status at the same time.</li>
+      <li>Asynchronous-random updating (ARU): in each time-step all agents review their status in a random sequential order.</li>
+   </ul>
+
+
+   <p>StandingOvation.nlogo is a NetLogo (<a href="#wilensky1999">Wilensky 1999</a>) implementation of this model. In StandingOvation.nlogo, the "five neighbours" neighbourhood can be used by setting the slider <i class="slider">cone-length</i> to 1, whilst setting this slider to any value greater than 18 will impose the "conical neighbourhood" (<i>L</i> = 20 in the StandingOvation.nlogo).</p>
+
+   <center>
+
+      <table border=1 cellpadding=4 width=797>
+         <tr valign=middle align=left>
+            <td>
+               <b>StandingOvation.nlogo</b>. NetLogo implementation of Miller and Page's (<a href="#miller2004">2004</a>) standing ovation model [<a href="StandingOvation.nlogo">Download</a>].
+               <ul>
+                  <li>The slider <i class="slider">cone-length</i> is used to set up the neighbourhoods: an agent's neighbourhood consists of the two agents on either side, plus the three agents on the first row ahead (if <i class="slider">cone-length</i> &ge; 1), plus the five agents on the second row ahead (if <i class="slider">cone-length</i> &ge; 2), ..., plus the (2&middot;<i class="slider">cone-length</i> + 1) agents on the <i class="slider">cone-length</i>th row ahead.</li>
+                  <li>The chooser <i class="slider">updating</i> determines the scheduling of events in the model (i.e. how agents revise their decision in each time-step): synchronous (<i class="value">sync</i>) or asynchronous-random (<i class="value">async-rd</i>).</li>
+                  <li>The slider <i class="slider">noise</i> is the probability that each individual agent, after having revised her status (seated or standing), will change it to the opposite.</li>
+                  <li>The button <i class="button">Rd initial cond</i> sets up the initial conditions by making each individual agent stand up with probability <i class="slider">intrinsic-prob-standing</i>.</li>
+                  <li>The button <i class="button">Cycles 2 st</i> sets the updating mechanism to SU, the type of neighbourhood to "five neighbours", the <i class="slider">noise</i> to 0, and initial conditions such that the system cycles between 2 states.</li>
+                  <li>The button <i class="button">Cycles +2 st</i> sets the updating mechanism to SU, the type of neighbourhood to "conical", the <i class="slider">noise</i> to 0, and initial conditions such that the system enters a periodic communicating class of period 2 that contains more than 2 states.</li>
+                  <li>Pressing on the button <i class="button">go once</i> will run the model one time-step only, whilst pressing on the button <i class="button">go</i> runs the model until this same button is pressed again.</li>
+                  <li>Buttons <i class="button">Make guy stand up</i> and <i class="button">Make guy sit down</i> can be used to change any specific agent's status manually.</li>
+                  <li>The button <i class="button">Show guy's vision</i> allows the user to click on an agent to see her neighbourhood. <i class="button">Clear</i> deletes all paintings of agents' neighbourhoods.</li>
+               </ul>
+            </td>
+         </tr>
+      </table>
+   </center>
+
+
+   <!--
+
+   <p>Applet 1 below is a NetLogo (<a href="#wilensky1999">Wilensky 1999</a>) implementation of this model. In Applet 1, the "five neighbours" neighbourhood can be used by setting the slider <i class="slider">cone-length</i> to 1, whilst setting this slider to any value greater than 18 will impose the "conical neighbourhood" (<i>L</i> = 20 in the applet).</p>
+
+   <center>
+
+      <p>
+         <applet code="org.nlogo.lite.Applet" archive="NetLogoLite.jar" width="813" height="371">
+            <param name="DefaultModel" value="StandingOvation.nlogo">
+            <param name="java_arguments" value="-Djnlp.packEnabled=true">
+         </applet>
+      </p>
+
+      <table border=1 cellpadding=4 width=797>
+         <tr valign=middle align=left>
+            <td>
+               <b>Applet 1</b>. NetLogo implementation of Miller and Page's (<a href="#miller2004">2004</a>) standing ovation model [<a href="StandingOvation.nlogo">Download</a>].
+               <ul>
+                  <li>The slider <i class="slider">cone-length</i> is used to set up the neighbourhoods: an agent's neighbourhood consists of the two agents on either side, plus the three agents on the first row ahead (if <i class="slider">cone-length</i> &ge; 1), plus the five agents on the second row ahead (if <i class="slider">cone-length</i> &ge; 2), ..., plus the (2&middot;<i class="slider">cone-length</i> + 1) agents on the <i class="slider">cone-length</i>th row ahead.</li>
+                  <li>The chooser <i class="slider">updating</i> determines the scheduling of events in the model (i.e. how agents revise their decision in each time-step): synchronous (<i class="value">sync</i>) or asynchronous-random (<i class="value">async-rd</i>).</li>
+                  <li>The slider <i class="slider">noise</i> is the probability that each individual agent, after having revised her status (seated or standing), will change it to the opposite.</li>
+                  <li>The button <i class="button">Rd initial cond</i> sets up the initial conditions by making each individual agent stand up with probability <i class="slider">intrinsic-prob-standing</i>.</li>
+                  <li>The button <i class="button">Cycles 2 st</i> sets the updating mechanism to SU, the type of neighbourhood to "five neighbours", the <i class="slider">noise</i> to 0, and initial conditions such that the system cycles between 2 states.</li>
+                  <li>The button <i class="button">Cycles +2 st</i> sets the updating mechanism to SU, the type of neighbourhood to "conical", the <i class="slider">noise</i> to 0, and initial conditions such that the system enters a periodic communicating class of period 2 that contains more than 2 states.</li>
+                  <li>Pressing on the button <i class="button">go once</i> will run the model one time-step only, whilst pressing on the button <i class="button">go</i> runs the model until this same button is pressed again.</li>
+                  <li>Buttons <i class="button">Make guy stand up</i> and <i class="button">Make guy sit down</i> can be used to change any specific agent's status manually.</li>
+                  <li>The button <i class="button">Show guy's vision</i> allows the user to click on an agent to see her neighbourhood. <i class="button">Clear</i> deletes all paintings of agents' neighbourhoods.</li>
+               </ul>
+            </td>
+         </tr>
+      </table>
+   </center>
+   -->
+
+   <h2>The model as a time-homogeneous Markov chain</h2>
+
+   <p>The state of the system can be defined by a vector <i>s</i> of dimension <i>L</i><sup>2</sup>, containing the <i>L</i><sup>2</sup> agents' status: <i>s<sub>i</sub></i> = 1 if agent <i>i</i> is standing, and <i>s<sub>i</sub></i> = 0 if agent <i>i</i> is seated. Hence the state space is a finite set of 2<sup><i>L</i><sup>2</sup></sup> states. Note that any state can be observed because the initial quality <i>q<sub>i</sub></i> perceived by each agent follows a uniform distribution (and the threshold value equals 0.5).
+   </p>
+
+   <h2>Analysis</h2>
+
+   <h3>Absorbing states</h3>
+   <p>We start by proving that the system has only two absorbing states (everyone seated, and everyone standing) regardless of the value of <i>L</i>, the updating mechanism (SU or ARU) and the type of neighbourhood ("five neighbours" or "conical neighbourhood"). To see this, note that a state <i>i</i> is absorbing if and only if <i>p<sub>i,i</sub></i> = 1. In other words, in an absorbing state every agent is in one of the following two situations:</p>
+
+   <ul>
+      <li>permanently standing with strictly more than half her neighbours permanently standing, or</li>
+      <li>permanently seated with strictly more than half her neighbours permanently seated.</li>
+   </ul>
+
+   <p>The proof rests on the following facts:</p>
+   <ul>
+      <li>In an absorbing state every individual in the first row must be in the same status (either all seated or all standing). To see this, note that if there is any seated agent next to a standing agent, there is a strictly positive probability that at least one of them will change status (so such situation cannot be absorbing). Thus, it is proved that in every absorbing state every individual in the first row must be in the same status (either all seated or all standing).</li>
+      <li>The fact that every agent in the first row is in the same status permanently means that the majority of neighbours of any agent in the second row is (permanently) in that same status. Thus, every agent in the second row must be in the same status as every agent in the first row, permanently.</li>
+      <li>Reasoning by mathematical induction, the preceding point implies that every agent in the auditorium must be in the same status (either all seated or all standing) regardless of the value of <i>L</i>, the updating mechanism (SU or ARU) and the type of neighbourhood ("five neighbours" or "conical neighbourhood").</li>
+   </ul>
+
+   <h3>Analysis of the Asynchronous Random Updating (ARU) model</h3>
+
+   <p>In this section we demonstrate that the only two absorbing classes in the ARU model correspond to the two unique absorbing states described in the previous section. This can be proved by showing that it is possible to reach (at least) one absorbing state from any given state (and therefore we can assert that there isn't any closed communicating class with more than one state in the model)<sup> [<a href="#fn2">2</a>]</sup>.</p>
+
+   <p>The proof goes as follows:</p>
+   <ul>
+      <li>Given any arbitrary state, there is a strictly positive probability that the order in which agents update their individual status is as follows:</li>
+      <ul>
+         <li>All agents in row <i>n</i>+1 update their status after all agents in row <i>n</i> (where rows with lower index are closer to the stage).</li>
+         <li>Agents in the first row update their status from left to right.</li>
+      </ul>
+      </li>
+      <li>Since agents in the first row update their status from left to right, there is a strictly positive probability that all of them will successively adopt the status adopted by the leftmost agent.</li>
+      <li>Once every agent in the first row is in the same status, the assumed updating schedule for the other rows guarantees that this status will be adopted by all the agents in the auditorium.</li>
+   </ul>
+
+   <p>Thus, from any arbitrary state it is possible to reach (at least) one of the two absorbing states (everyone seated, or everyone standing) regardless of the value of <i>L</i> and the type of neighbourhood ("five neighbours" or "conical neighbourhood").</p>
+
+   <p>Having proved that the only two absorbing classes in the ARU model correspond to the two absorbing states, using Proposition 2 we can partition the state space as follows: <i>S</i> = {<i>abs</i><sub>1</sub>} &cup; {<i>abs</i><sub>2</sub>} &cup; <i>T</i>, where <i>abs</i><sub>1</sub> and <i>abs</i><sub>2</sub> are the two absorbing states (everyone standing, and everyone seated), and <i>T</i> is the union of all non-closed communicating classes. Taking into account Proposition 3 we can conclude that sooner or later the THMC will enter one of the two absorbing states and stay in it forever. Naturally, the probability of ending up in each of the two absorbing states depends on the initial conditions.</p>
+
+   <p>The same conclusions are valid for the third updating mechanism considered by Miller and Page (<a href="#miller2004">2004</a>), called Asynchronous-Incentive-Based Updating. (See <a href="#fn3">footnote 3</a>.)</p>
+
+   <h3>Analysis of the Synchronous Updating (SU) model</h3>
+
+   <p>The analysis of the SU model is significantly different from that of the ARU model. With synchronous updating, all agents review their decision in unison. As demonstrated above, the SU model has only two absorbing states but, in contrast to the ARU model, in the SU model there can be many periodic recurrent classes. Some of these classes contain only 2 states (the reader may see several examples by pressing the button <i class="button">Cycles 2 st</i> in Applet 1), and some others contain more than 2 states (the reader may see several examples by pressing the button <i class="button">Cycles +2 st</i> in Applet 1) &ndash;depending on the type of neighbourhood&ndash;. As previously shown, all these periodic classes are not present in the ARU model.</p>
+
+   <p>Thus, in the SU model there are several absorbing classes and, naturally, the probability of ending up trapped in any particular one depends on the initial conditions.</p>
+
+   <h2>Introducing noise in the model</h2>
+
+   <p>In this section we present a slight variation of Miller and Page's (<a href="#miller2004">2004</a>) model where each agent may change her status with a certain exogenous probability. To be precise, each individual agent, immediately after having revised her status, will change it to the opposite with probability <i class="slider">noise</i>: a standing agent will sit with probability <i class="slider">noise</i>, whereas a seated agent will stand up with probability <i class="slider">noise</i>.</p>
+
+   <p>Introducing noise changes the dynamics of the model significantly. It is clear that &ndash;regardless of the value of <i>L</i>, the updating mechanism (SU or ARU) and the type of neighbourhood ("five neighbours" or "conical neighbourhood")&ndash; the inclusion of noise prevents the system from locking in any state, i.e. there are no absorbing states anymore. As a matter of fact, the model with <i class="slider">noise</i> &isin; (0, 1) satisfies sufficient condition (i) for irreducibility and aperiodicity pointed out in Proposition 4 of our paper:</p>
+
+   <dl>
+      <dt>Proposition 4</dt>
+      <dd>(i) If it is possible to go from any state to any other state in one single time-step (<i>p</i><sub><i>i</i>,<i>j</i></sub> &gt; 0 for all <i>i</i> &ne; <i>j</i>) and there are more than 2 states, then the THMC is irreducible and aperiodic.</dd>
+   </dl>
+
+   <p>The demonstration of this statement is simple when one realises that the inclusion of noise guarantees that it is possible to go from any state to any other state in one single step. Consequently the model is an irreducible and aperiodic THMC, also called ergodic. As we have seen in the paper, in these processes the probability of finding the system in each of its states in the long run is strictly positive and independent of the initial conditions. Furthermore the limiting distribution &pi; coincides with the occupancy distribution &pi;<sup>*</sup>. Calculating such probabilities by deriving the transition matrix and its powers seems rather impractical, but we can approximate them as much as we want by running just one simulation for long enough.</p>
+
+   <p>Note that the conclusions provided in this section are independent of the initial conditions (i.e. independent of the quality of the performance), of the precise value of the <i class="slider">noise</i> (as long as it is in the interval (0, 1)), of the value of <i>L</i>, of the updating mechanism and of the type of neighbourhood.</p>
+
+   <h3>Analysis of the Asynchronous Random Updating (ARU) model with noise</h3>
+
+   <p>As argued above, the ARU model with noise has no absorbing states anymore, but it is clear that the two Previously Absorbing States (PAS) are the only two stochastically stable states (see section 10 of our paper). The proof of this statement is straightforward once we realise that symmetric considerations imply that the two PAS are equivalent. Thus, in the limit as <i class="slider">noise</i> goes to zero, the limiting distribution &pi; will concentrate on each of the PAS with probability 0.5. In other words, the only two states that would be observed with positive probability in the limit as <i class="slider">noise</i> tends to zero are the two PAS, and they would be observed with equal probability.</p>
+
+   <H2>Licence</H2>
+   <p>StandingOvation is an agent-based model described by Miller and Page in their paper:
+      <br>Miller, J. H. and S. E. Page (2004). "The standing ovation problem" Complexity 9(5): 8-16.
+      <br>Copyright (C) 2008 <a target="_blank" href="http://luis.izqui.org">Luis R. Izquierdo</a>, <a target="_blank" href="http://segis.izqui.org">Segismundo S. Izquierdo</a>, <a target="_blank" href="http://josema.galan.name">José M. Galán</a> &amp; <a target="_blank" href="http://nacho.santos.name">José I. Santos</a></p>
+   <p>This program is free software; you can redistribute it and/or modify it under the terms of the <a target="_blank" href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License</a> as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.</p>
+   <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the <a target="_blank" href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License</a> for more details.</p>
+   <p>You can download a copy of the <a target="_blank" href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License</a> by clicking <a target="_blank" href="./gpl-3.0.txt">here</a>; you can also get a printed copy writing to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
+   <p>Contact information:
+      <br>Luis R. Izquierdo
+      <br> University of Burgos, Spain.
+      <br> e-mail: <a href="mailto:lrizquierdo@ubu.es">lrizquierdo@ubu.es</a>
+   </p>
+
+   <H2>Modellers</H2>
+   <p>This program has been designed and implemented by <a target="_blank" href="http://luis.izqui.org">Luis R. Izquierdo</a>, <a target="_blank" href="http://segis.izqui.org">Segismundo S. Izquierdo</a>, <a target="_blank" href="http://josema.galan.name">José M. Galán</a> &amp; <a target="_blank" href="http://nacho.santos.name">José I. Santos</a></p>
+
+   <h2>References</h2>
+
+   <p><a name="demarchi2005">de MARCHI</a> S (2005) <i>Computational and Mathematical Modeling in the Social Sciences</i>. Cambridge University Press.</p>
+
+   <p><a name="miller2004">MILLER</a> J H &amp; Page S E (2004) The Standing Ovation Problem<i>. Complexity</i> 9(5), pp. 8-16.</p>
+
+   <p><a name="miller2007">MILLER</a> J H &amp; Page S E (2007) <i>Complex Adaptive Systems: An Introduction to Computational Models of Social Life</i>. Princeton University Press.</p>
+
+   <p><a name="wilensky1999">WILENSKY</a> U (1999). NetLogo. Evanston, IL Center for Connected Learning and Computer-Based Modeling, Northwestern University. <a target="_blank" href="http://ccl.northwestern.edu/netlogo/">http://ccl.northwestern.edu/netlogo/</a>.</p>
+
+   <hr>
+
+   <p><a name="fn1"><sup>1</sup> In the case of a tie the agent sits or stands with equal probability. (And her decision in this case may be different in different time-steps.)</a></p>
+
+   <p><a name="fn2"><sup>2</sup></a> The method used here to prove that something is possible consists in identifying a sequence of random events that can occur with strictly positive probability.</p>
+
+   <p><a name="fn3"><sup>3</sup></a> Note that given any arbitrary state, there is a strictly positive probability that the agent located at the leftmost location in the first row and her only neighbour adopt the same status in the following state. From this second state, there is a strictly positive probability that the third agent adopts this same status while the previous two keep it. This reasoning can be continued for the following agents in the first row. Thus, after a number of time-steps, there is a strictly positive probability of reaching a state where every agent in the first row is in the same status. This situation necessarily leads to a situation where every agent in the auditorium adopts that same status.</p>
+
+</body>
+
+</html>
