@@ -105,29 +105,28 @@
    </ul>
 
 
-   <p>StandingOvation.nlogo is a NetLogo (<a href="#wilensky1999">Wilensky 1999</a>) implementation of this model. In StandingOvation.nlogo, the "five neighbours" neighbourhood can be used by setting the slider <i class="slider">cone-length</i> to 1, whilst setting this slider to any value greater than 18 will impose the "conical neighbourhood" (<i>L</i> = 20 in the StandingOvation.nlogo).</p>
+   <h2>NetLogo implementation of the model</h2>
+   <p><a href="StandingOvation.nlogo">StandingOvation.nlogo</a> is a NetLogo (<a href="#wilensky1999">Wilensky 1999</a>) implementation of Miller and Page's (<a href="#miller2004">2004</a>) model.</p>
 
-   <center>
+   <img style="margin:0px auto;display:block" src="./standing-ovation.png" />
 
-      <table border=1 cellpadding=4 width=797>
-         <tr valign=middle align=left>
-            <td>
-               <b>StandingOvation.nlogo</b>. NetLogo implementation of Miller and Page's (<a href="#miller2004">2004</a>) standing ovation model [<a href="StandingOvation.nlogo">Download</a>].
-               <ul>
-                  <li>The slider <i class="slider">cone-length</i> is used to set up the neighbourhoods: an agent's neighbourhood consists of the two agents on either side, plus the three agents on the first row ahead (if <i class="slider">cone-length</i> &ge; 1), plus the five agents on the second row ahead (if <i class="slider">cone-length</i> &ge; 2), ..., plus the (2&middot;<i class="slider">cone-length</i> + 1) agents on the <i class="slider">cone-length</i>th row ahead.</li>
-                  <li>The chooser <i class="slider">updating</i> determines the scheduling of events in the model (i.e. how agents revise their decision in each time-step): synchronous (<i class="value">sync</i>) or asynchronous-random (<i class="value">async-rd</i>).</li>
-                  <li>The slider <i class="slider">noise</i> is the probability that each individual agent, after having revised her status (seated or standing), will change it to the opposite.</li>
-                  <li>The button <i class="button">Rd initial cond</i> sets up the initial conditions by making each individual agent stand up with probability <i class="slider">intrinsic-prob-standing</i>.</li>
-                  <li>The button <i class="button">Cycles 2 st</i> sets the updating mechanism to SU, the type of neighbourhood to "five neighbours", the <i class="slider">noise</i> to 0, and initial conditions such that the system cycles between 2 states.</li>
-                  <li>The button <i class="button">Cycles +2 st</i> sets the updating mechanism to SU, the type of neighbourhood to "conical", the <i class="slider">noise</i> to 0, and initial conditions such that the system enters a periodic communicating class of period 2 that contains more than 2 states.</li>
-                  <li>Pressing on the button <i class="button">go once</i> will run the model one time-step only, whilst pressing on the button <i class="button">go</i> runs the model until this same button is pressed again.</li>
-                  <li>Buttons <i class="button">Make guy stand up</i> and <i class="button">Make guy sit down</i> can be used to change any specific agent's status manually.</li>
-                  <li>The button <i class="button">Show guy's vision</i> allows the user to click on an agent to see her neighbourhood. <i class="button">Clear</i> deletes all paintings of agents' neighbourhoods.</li>
-               </ul>
-            </td>
-         </tr>
-      </table>
-   </center>
+
+   <h3>How to use the NetLogo model</h3>
+
+   <ul>
+      <li>The slider <i class="slider">cone-length</i> is used to set up the neighbourhoods: an agent's neighbourhood consists of the two agents on either side, plus the three agents on the first row ahead (if <i class="slider">cone-length</i> &ge; 1), plus the five agents on the second row ahead (if <i class="slider">cone-length</i> &ge; 2), ..., plus the (2&middot;<i class="slider">cone-length</i> + 1) agents on the <i class="slider">cone-length</i>th row ahead. Thus, the "five neighbours" neighbourhood can be used by setting the slider <i class="slider">cone-length</i> to 1, whilst setting this slider to any value greater than 18 will impose the "conical neighbourhood" (since <i>L</i> = 20 in StandingOvation.nlogo).</li>
+      <li>The chooser <i class="slider">updating</i> determines the scheduling of events in the model (i.e. how agents revise their decision in each time-step): synchronous (<i class="value">sync</i>) or asynchronous-random (<i class="value">async-rd</i>).</li>
+      <li>The slider <i class="slider">noise</i> is the probability that each individual agent, after having revised her status (seated or standing), will change it to the opposite.</li>
+      <li>The button <i class="button">Rd initial cond</i> sets up the initial conditions by making each individual agent stand up with probability <i class="slider">intrinsic-prob-standing</i>.</li>
+      <li>The button <i class="button">Cycles 2 st</i> sets the updating mechanism to SU, the type of neighbourhood to "five neighbours", the <i class="slider">noise</i> to 0, and initial conditions such that the system cycles between 2 states.</li>
+      <li>The button <i class="button">Cycles +2 st</i> sets the updating mechanism to SU, the type of neighbourhood to "conical", the <i class="slider">noise</i> to 0, and initial conditions such that the system enters a periodic communicating class of period 2 that contains more than 2 states.</li>
+      <li>Pressing on the button <i class="button">go once</i> will run the model one time-step only, whilst pressing on the button <i class="button">go</i> runs the model until this same button is pressed again.</li>
+      <li>Buttons <i class="button">Make guy stand up</i> and <i class="button">Make guy sit down</i> can be used to change any specific agent's status manually.</li>
+      <li>The button <i class="button">Show guy's vision</i> allows the user to click on an agent to see her neighbourhood. <i class="button">Clear</i> deletes all paintings of agents' neighbourhoods.</li>
+   </ul>
+
+   </table>
+   </ul>
 
 
    <!--
