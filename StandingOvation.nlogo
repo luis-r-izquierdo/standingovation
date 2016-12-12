@@ -27,7 +27,7 @@
 ;; Contact information:
 ;; Luis R. Izquierdo
 ;;   University of Burgos, Spain.
-;;   e-mail: luis@izquierdo.name
+;;   e-mail: lrizquierdo@ubu.es
 
 
 ;;;;;;;;;;;;;;;;;
